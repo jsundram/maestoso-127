@@ -1,136 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>The Maestosos of Opus 127</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    @font-face {
-      font-family: 'Playfair Display';
-      src: url('fonts/PlayfairDisplay-Regular.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-    }
+    <meta charset="UTF-8" />
+    <title>The Maestosos of Opus 127</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+/* === Fonts === */
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('fonts/PlayfairDisplay-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('fonts/PlayfairDisplay-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('fonts/SourceSerif4-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('fonts/SourceSerif4-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+}
 
-    @font-face {
-      font-family: 'Playfair Display';
-      src: url('fonts/PlayfairDisplay-Bold.woff2') format('woff2');
-      font-weight: 700;
-      font-style: normal;
-    }
+/* === Reset & Base === */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+body {
+  background-color: rgb(209, 199, 180);
+  font-family: 'Source Serif 4', serif;
+  font-size: 1em;
+  line-height: 1.6;
+  color: #222;
+  margin: auto;
+  padding: 1em;
+  max-width: 1600px;
+  width: 95vw;
+}
 
-    @font-face {
-      font-family: 'Source Serif 4';
-      src: url('fonts/SourceSerif4-Regular.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-    }
+/* === Typography === */
+.header-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(1.8em, 5vw, 2.5em);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: #111;
+  text-align: center;
+  margin-bottom: 0.5em;
+}
 
-    @font-face {
-      font-family: 'Source Serif 4';
-      src: url('fonts/SourceSerif4-Italic.woff2') format('woff2');
-      font-weight: 400;
-      font-style: italic;
-    }
+/* === Layout Containers === */
+#score-wrapper,
+.row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
 
-    .header-title {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 2.5em;
-      line-height: 1.2;
-      letter-spacing: 0.02em;
-      color: #111;
-      text-align: center;
-      margin-bottom: 0.5em;
-    }
+#options {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5em;
+}
 
-    body {
-      background-color: rgb(209, 199, 180);
-      font-family: 'Source Serif 4', serif;
-      font-size: 1em;
-      line-height: 1.6;
-      color: #222;
-      max-width: 1600px;
-      margin: 20px;
-      padding: 1em;
-    }
+#visualization {
+  margin-top: 20px;
+}
 
-    #score-wrapper {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-    }
+/* === Image & SVG === */
+#score-image {
+  width: 100%;
+  height: auto;
+}
+img, svg {
+  max-width: 100%;
+  height: auto;
+}
 
-    #score-image {
-      width: 1000px;
-      display: block;
-    }
+/* === Row Elements === */
+.artist,
+.timestamp {
+  text-align: center;
+  padding: 0.2em 0.5em;
+  font-weight: bold;
+  width: auto;
+}
 
-    #options {
-      margin-bottom: 20px;
-      text-align: center;
-      font-size: 1.2em;
-    }
+.artist a {
+  color: #268bd2;
+  text-decoration: none;
+}
+.artist a:hover {
+  text-decoration: underline;
+}
 
-    #visualization {
-      margin-top: 20px;
-    }
+.timestamp {
+  font-weight: normal;
+}
 
-    .row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-    }
+/* === Visualization Shapes === */
+.semicircle-up {
+  fill: rgb(38, 40, 44);
+}
+.semicircle-down {
+  fill: rgb(173, 36, 40);
+}
 
-    .artist {
-      width: 250px;
-      text-align: right;
-      padding-right: 20px;
-      font-weight: bold;
-    }
+/* === Tooltip === */
+.tooltip {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  font-size: 0.9em;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  max-width: 80vw;
+  word-wrap: break-word;
+}
 
-    .artist a {
-      color: #268bd2;
-      text-decoration: none;
-    }
+/* === Footer === */
+#footnote {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.9em;
+  color: #657b83;
+}
 
-    .artist a:hover {
-      text-decoration: underline;
-    }
-
-    .timestamp {
-      width: 25px;
-      text-align: right;
-      padding-right: 20px;
-    }
-
-    .semicircle-up {
-      fill: rgb(38, 40, 44);
-    }
-
-    .semicircle-down {
-      fill: rgb(173, 36, 40);
-    }
-
-    .tooltip {
-      position: absolute;
-      background: white;
-      border: 1px solid #ccc;
-      padding: 4px 8px;
-      font-size: 0.9em;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    #footnote {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #657b83;
-    }
-
-  </style>
+/* === Mobile Adjustments === */
+@media (max-width: 600px) {
+  .row {
+    margin-bottom: 30px;
+  }
+  .artist,
+  .timestamp {
+    font-size: 0.9em;
+  }
+  #footnote {
+    font-size: 0.8em;
+  }
+}
+    </style>
 </head>
 <body>
   <h1 class="header-title">The Maestosos of Opus 127</h1>

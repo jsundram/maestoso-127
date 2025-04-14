@@ -5,139 +5,167 @@
   <title>The Maestosos of Opus 127</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    @font-face {
-      font-family: 'Playfair Display';
-      src: url('fonts/PlayfairDisplay-Regular.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-    }
+  @font-face {
+    font-family: 'Playfair Display';
+    src: url('fonts/PlayfairDisplay-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
 
-    @font-face {
-      font-family: 'Playfair Display';
-      src: url('fonts/PlayfairDisplay-Bold.woff2') format('woff2');
-      font-weight: 700;
-      font-style: normal;
-    }
+  @font-face {
+    font-family: 'Playfair Display';
+    src: url('fonts/PlayfairDisplay-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
 
-    @font-face {
-      font-family: 'Source Serif 4';
-      src: url('fonts/SourceSerif4-Regular.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-    }
+  @font-face {
+    font-family: 'Source Serif 4';
+    src: url('fonts/SourceSerif4-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
 
-    @font-face {
-      font-family: 'Source Serif 4';
-      src: url('fonts/SourceSerif4-Italic.woff2') format('woff2');
-      font-weight: 400;
-      font-style: italic;
-    }
+  @font-face {
+    font-family: 'Source Serif 4';
+    src: url('fonts/SourceSerif4-Italic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+  }
 
-    .header-title {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 2.5em;
-      line-height: 1.2;
-      letter-spacing: 0.02em;
-      color: #111;
-      text-align: center;
-      margin-bottom: 0.5em;
-    }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 2.5em;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    color: #111;
+    text-align: center;
+    margin-bottom: 0.5em;
+  }
 
-    body {
-      background-color: rgb(209, 199, 180);
-      font-family: 'Source Serif 4', serif;
-      font-size: 1em;
-      line-height: 1.6;
-      color: #222;
-      max-width: 1600px;
-      margin: 20px;
-      padding: 1em;
-    }
+  body {
+    background-color: rgb(209, 199, 180);
+    font-family: 'Source Serif 4', serif;
+    font-size: 1em;
+    line-height: 1.6;
+    color: #222;
+    max-width: 1600px;
+    margin: 20px;
+    padding: 1em;
+  }
 
-    #score-wrapper {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-    }
+  #score-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
 
-    #score-image {
-      width: 1000px;
-      display: block;
-    }
+  #score-image {
+    width: 100%;
+    margin: auto;
+    max-width: 1000px;
+    display: block;
+  }
 
-    #options {
-      margin-bottom: 20px;
-      text-align: center;
-      font-size: 1.2em;
-    }
+  #options {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.2em;
+  }
 
-    #visualization {
-      margin-top: 20px;
-    }
+  #visualization {
+    margin-top: 20px;
+  }
 
+  .row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+
+  .meta {
+    width: 180px;
+    text-align: right;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-right: 10px;
+  }
+
+  .artist {
+    font-weight: bold;
+    word-break: break-word;
+  }
+
+  .artist a {
+    color: #268bd2;
+    text-decoration: none;
+  }
+
+  .artist a:hover {
+    text-decoration: underline;
+  }
+
+  .timestamp {
+    font-size: 0.9em;
+    color: #333;
+    margin-top: 4px;
+  }
+
+  svg {
+    flex-grow: 1;
+    max-width: 100%;
+  }
+
+  .semicircle-up {
+    fill: rgb(38, 40, 44);
+  }
+
+  .semicircle-down {
+    fill: rgb(173, 36, 40);
+  }
+
+  .tooltip {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+    font-size: 0.9em;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  #footnote {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.9em;
+    color: #657b83;
+  }
+
+  @media (max-width: 700px) {
     .row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
-    .artist {
-      width: 250px;
-      text-align: right;
-      padding-right: 20px;
-      font-weight: bold;
+    .meta {
+      width: 100%;
+      text-align: left;
+      align-items: flex-start;
+      padding-right: 0;
+      margin-bottom: 5px;
     }
-
-    .artist a {
-      color: #268bd2;
-      text-decoration: none;
-    }
-
-    .artist a:hover {
-      text-decoration: underline;
-    }
-
-    .timestamp {
-      width: 25px;
-      text-align: right;
-      padding-right: 20px;
-    }
-
-    .semicircle-up {
-      fill: rgb(38, 40, 44);
-    }
-
-    .semicircle-down {
-      fill: rgb(173, 36, 40);
-    }
-
-    .tooltip {
-      position: absolute;
-      background: white;
-      border: 1px solid #ccc;
-      padding: 4px 8px;
-      font-size: 0.9em;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    #footnote {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #657b83;
-    }
-
-  </style>
+  }
+</style>
 </head>
 <body>
   <h1 class="header-title">The Maestosos of Opus 127</h1>
 
   <div id="score-wrapper">
-    <div class="artist"></div>
-    <div class="timestamp"></div>
     <img src="score.png" alt="Score Image" id="score-image" />
   </div>
 
@@ -209,35 +237,27 @@
           const svgHeight = maxRadius + minRadius + 20;
           const y = maxRadius + 10;
 
-
-          // TODO: this next block needs tweaking.
-          const redDurations = timestamps.slice(1).map(
-            (t, i) => (i % 2 === 1 ? t - timestamps[i] : null)
-          ).filter(d => d !== null);
-          const [minDur, maxDur] = d3.extent(redDurations);
-
-          // #ad2428 was the original color
-          const redScale = d3.scaleLinear()
-            .domain([minDur, maxDur])
-            .range(["#f4cccc", "#990000"]);
-          // .range(["#e68487", "#ad2428"]);
-
           const row = container.append("div").attr("class", "row");
-          row.append("div")
+
+          const meta = row.append("div").attr("class", "meta");
+          meta.append("div")
             .attr("class", "artist")
-            .style("padding-top", y - 40 + "px")  // 40 = visual fudge factor
             .append("a")
             .attr("href", entry.spotify || "#")
             .attr("target", "_blank")
             .text(entry.artist);
 
-          row.append("div")
+
+          const track_length = entry.track_length ? `[${entry.track_length}]` : "";
+          const timeFormatted = `${d3.format(".2f")(d3.max(entry.timestamps))}s ${track_length}`;
+          meta.append("div")
             .attr("class", "timestamp")
-            .style("padding-top", y - 40 + "px")  // 40 = visual fudge factor
-            .text(d3.format(".1f")(d3.max(entry.timestamps)) + "s");
+            .text(timeFormatted);
 
           const svg = row.append("svg")
-            .attr("width", maxRowLength)
+            .attr("viewBox", `0 0 ${maxRowLength} ${svgHeight}`)
+            .attr("preserveAspectRatio", "xMinYMid meet")
+            .attr("width", "100%")
             .attr("height", svgHeight);
 
           semicircles.forEach(([t1, t2], i) => {
@@ -261,7 +281,6 @@
                 return path.toString();
               })
               .attr("class", i % 2 === 0 ? "semicircle-up" : "semicircle-down")
-              //.style("fill", i % 2 === 0 ? null : redScale(t2 - t1)) // restore after fixing color scale
               .on("mouseover", function (event) {
                 tooltip.style("opacity", 1).text(`${duration}s`);
               })
@@ -274,14 +293,12 @@
                 tooltip.style("opacity", 0);
               });
           });
-
-          row.append("div")
-            .attr("class", "timestamp")
-            .attr("title", "Track length for the whole movement")
-            .style("padding-top", y -12+"px")  // 40 = visual fudge factor
-            .text(entry.track_length || "");
         });
       }
+
+      window.addEventListener("resize", () => {
+        update();
+      });
 
       function update() {
         const scaleType = document.querySelector("input[name=scale]:checked").value;
@@ -296,6 +313,5 @@
       d3.select("#sort-select").on("change", update);
     });
 </script>
-  </script>
 </body>
 </html>

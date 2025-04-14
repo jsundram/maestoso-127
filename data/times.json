@@ -1,0 +1,400 @@
+[
+    {
+        "artist": "tempo@30bpm",
+        "spotify": "",
+        "timestamps": [
+            0,
+            4,
+            5,
+            7,
+            8,
+            12,
+            13,
+            15,
+            16,
+            19,
+            20,
+            24
+        ]
+    },
+    {
+        "artist": "Danish String Quartet",
+        "spotify": "https://open.spotify.com/track/5UctLUMiMHqiXcNJ2P0SOz",
+        "track_length": "6:44",
+        "timestamps": [
+            0,
+            3.08,
+            3.902,
+            5.699,
+            6.493,
+            9.778,
+            10.509,
+            12.316,
+            13.115,
+            15.288,
+            16.226,
+            22.943
+        ]
+    },
+    {
+        "artist": "Cleveland Quartet",
+        "spotify": "https://open.spotify.com/track/3Ngfw9Yd07LiLT8HJ76MZo",
+        "track_length": "7:05",
+        "timestamps": [
+            0,
+            3.69,
+            4.977,
+            7.141,
+            8.309,
+            12.397,
+            13.346,
+            15.62,
+            16.688,
+            19.53,
+            21.129,
+            27.065
+        ]
+    },
+    {
+        "artist": "Dover Quartet",
+        "spotify": "https://open.spotify.com/track/75LfJDmws8DDRdN4Qyaa2i",
+        "track_length": "6:45",
+        "timestamps": [
+            0,
+            2.829,
+            3.609,
+            5.176,
+            5.874,
+            8.8,
+            9.515,
+            11.125,
+            11.911,
+            14.234,
+            15.298,
+            21.1
+        ]
+    },
+    {
+        "artist": "Emerson String Quartet",
+        "spotify": "https://open.spotify.com/track/2xDfdf75sdw3ravq3yHn5C",
+        "track_length": "6:58",
+        "timestamps": [
+            0,
+            3.139,
+            3.78,
+            5.304,
+            6.24,
+            9.604,
+            10.298,
+            12.016,
+            12.956,
+            15.398,
+            16.682,
+            22.665
+        ]
+    },
+    {
+        "artist": "Quatour Mosaiques",
+        "spotify": "https://open.spotify.com/track/0XLgzad9V95vt8xv4K9Bz4",
+        "track_length": "6:58",
+        "timestamps": [
+            0,
+            2.136,
+            3.117,
+            4.265,
+            4.908,
+            7.375,
+            8.1,
+            9.528,
+            10.22,
+            12.261,
+            13.044,
+            17.42
+        ]
+    },
+    {
+        "artist": "Juilliard String Quartet",
+        "spotify": "https://open.spotify.com/track/4id5sxDHfx2wfGMRB9rA0u",
+        "track_length": "7:07",
+        "timestamps": [
+            0,
+            3.216,
+            4.467,
+            6.526,
+            7.485,
+            10.992,
+            11.915,
+            13.908,
+            15.056,
+            17.757,
+            18.876,
+            23.791
+        ]
+    },
+    {
+        "artist": "Quatour Ebene",
+        "spotify": "https://open.spotify.com/track/7dVaZGTvb07w4yDceKpU7L",
+        "track_length": "7:16",
+        "timestamps": [
+            0,
+            3.273,
+            4.395,
+            6.033,
+            6.98,
+            10.31,
+            11.239,
+            13.031,
+            13.931,
+            16.281,
+            17.272,
+            24.032
+        ]
+    },
+    {
+        "artist": "Hagen Quartett",
+        "spotify": "wrong-see-iphone",
+        "track_length": "6:13",
+        "timestamps": [
+            0,
+            2.273,
+            2.905,
+            4.269,
+            4.849,
+            7.299,
+            7.963,
+            9.408,
+            10.204,
+            12.397,
+            13.246,
+            17.6
+        ]
+    },
+    {
+        "artist": "Busch Quartet",
+        "spotify": "https://open.spotify.com/track/5iIIN3NjehQxe8tJJFdXrC",
+        "track_length": "6:52",
+        "timestamps": [
+            0,
+            3.069,
+            4.138,
+            5.787,
+            6.805,
+            10.092,
+            11.005,
+            12.697,
+            13.764,
+            16.107,
+            17.258,
+            22.135
+        ]
+    },
+    {
+        "artist": "Takacs Quartet",
+        "spotify": "https://open.spotify.com/track/413wTWB1iJhR981zP5Nj6j",
+        "track_length": "6:44",
+        "timestamps": [
+            0,
+            3.756,
+            4.705,
+            7.38,
+            8.41,
+            12.148,
+            13.224,
+            15.609,
+            16.676,
+            19.734,
+            21.123,
+            27.931
+        ]
+    },
+    {
+        "artist": "Budapest String Quartet",
+        "spotify": "https://open.spotify.com/track/5l77JNEPlr0N6eggLhNTUF",
+        "track_length": "6:18",
+        "timestamps": [
+            0,
+            3.891,
+            5.084,
+            7.195,
+            8.049,
+            12.132,
+            13.049,
+            15.18,
+            16.035,
+            18.85,
+            19.944,
+            25.494
+        ]
+    },
+    {
+        "artist": "Amadeus Quartett",
+        "spotify": "https://open.spotify.com/track/3q9yYFqOr1lkfaGols1iDX",
+        "track_length": "6:56",
+        "timestamps": [
+            0,
+            3.589,
+            4.434,
+            6.235,
+            7.265,
+            10.901,
+            11.924,
+            13.735,
+            14.854,
+            17.363,
+            18.592,
+            25.032
+        ]
+    },
+    {
+        "artist": "Guarneri Quartet",
+        "spotify": "https://open.spotify.com/track/3BeHnvAOSctQaZjsg0Z7Vw",
+        "track_length": "7:30",
+        "timestamps": [
+            0,
+            3.348,
+            4.143,
+            6.133,
+            6.884,
+            10.324,
+            11.027,
+            12.981,
+            13.8,
+            16.457,
+            17.376,
+            23.133
+        ]
+    },
+    {
+        "artist": "Quartetto Italiano",
+        "spotify": "https://open.spotify.com/track/67zrce391SaV9oiHlJHRrL",
+        "track_length": "6:56",
+        "timestamps": [
+            0,
+            3.989,
+            5.064,
+            6.856,
+            7.828,
+            11.532,
+            12.547,
+            14.337,
+            15.241,
+            17.863,
+            18.891,
+            24.608
+        ]
+    },
+    {
+        "artist": "Endellion Quartet",
+        "spotify": "https://open.spotify.com/track/6tJh37hakDTxhpAz6l78m6",
+        "track_length": "7:00",
+        "timestamps": [
+            0,
+            2.38,
+            3.451,
+            4.824,
+            5.775,
+            8.618,
+            9.435,
+            11.077,
+            11.893,
+            14.127,
+            15.215,
+            20.951
+        ]
+    },
+    {
+        "artist": "LaSalle Quartet",
+        "spotify": "https://open.spotify.com/track/6Q8v1qifgM8zIyBbie5MM4",
+        "track_length": "6:16",
+        "timestamps": [
+            0,
+            3.481,
+            4.497,
+            6.136,
+            7.056,
+            10.765,
+            11.627,
+            13.43,
+            14.423,
+            17.128,
+            18.212,
+            22.872
+        ]
+    },
+    {
+        "artist": "Alban Berg Quartett",
+        "spotify": "https://open.spotify.com/track/569PdPNQV5TfNFiJr26bcP",
+        "track_length": "6:41",
+        "timestamps": [
+            0,
+            3.064,
+            4.069,
+            5.795,
+            6.977,
+            10.329,
+            11.408,
+            13.25,
+            14.251,
+            16.775,
+            17.997,
+            22.904
+        ]
+    },
+    {
+        "artist": "Leipziger Streichquartett",
+        "spotify": "https://open.spotify.com/track/1Y5f531xEDf9Vw7qrTmBJp",
+        "track_length": "6:00",
+        "timestamps": [
+            0,
+            2.382,
+            3.419,
+            4.911,
+            5.66,
+            8.085,
+            9.167,
+            10.645,
+            11.386,
+            13.47,
+            14.233,
+            17.986
+        ]
+    },
+    {
+        "artist": "Melos Quartet",
+        "spotify": "https://open.spotify.com/track/2BT8QSnuJRg83b2k6YcikV",
+        "track_length": "6:46",
+        "timestamps": [
+            0,
+            3.12,
+            4.264,
+            6.014,
+            6.863,
+            10.516,
+            11.39,
+            13.49,
+            14.367,
+            16.965,
+            18.161,
+            23.182
+        ]
+    },
+    {
+        "artist": "Artemis Quartet",
+        "spotify": "https://open.spotify.com/track/0FOw1egXXVLkiaAyeSDLqp",
+        "track_length": "6:41",
+        "timestamps": [
+            0,
+            3.404,
+            4.289,
+            6.271,
+            7.199,
+            10.586,
+            11.56,
+            13.419,
+            14.353,
+            17.014,
+            18.113,
+            23.056
+        ]
+    }
+]

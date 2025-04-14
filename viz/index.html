@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Maestosos of Opus 127</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    @font-face {
+      font-family: 'Playfair Display';
+      src: url('fonts/PlayfairDisplay-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Playfair Display';
+      src: url('fonts/PlayfairDisplay-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Source Serif 4';
+      src: url('fonts/SourceSerif4-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Source Serif 4';
+      src: url('fonts/SourceSerif4-Italic.woff2') format('woff2');
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .header-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 2.5em;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+      color: #111;
+      text-align: center;
+      margin-bottom: 0.5em;
+    }
+
+    body {
+      background-color: rgb(209, 199, 180);
+      font-family: 'Source Serif 4', serif;
+      font-size: 1em;
+      line-height: 1.6;
+      color: #222;
+      max-width: 1600px;
+      margin: 20px;
+      padding: 1em;
+    }
+
+    #score-wrapper {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    #score-image {
+      width: 1000px;
+      display: block;
+    }
+
+    #options {
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 1.2em;
+    }
+
+    #visualization {
+      margin-top: 20px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .artist {
+      width: 250px;
+      text-align: right;
+      padding-right: 20px;
+      font-weight: bold;
+    }
+
+    .artist a {
+      color: #268bd2;
+      text-decoration: none;
+    }
+
+    .artist a:hover {
+      text-decoration: underline;
+    }
+
+    .timestamp {
+      width: 25px;
+      text-align: right;
+      padding-right: 20px;
+    }
+
+    .semicircle-up {
+      fill: rgb(38, 40, 44);
+    }
+
+    .semicircle-down {
+      fill: rgb(173, 36, 40);
+    }
+
+    .tooltip {
+      position: absolute;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 4px 8px;
+      font-size: 0.9em;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    #footnote {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #657b83;
+    }
+
+  </style>
+</head>
+<body>
+  <h1 class="header-title">The Maestosos of Opus 127</h1>
+
+  <div id="score-wrapper">
+    <div class="artist"></div>
+    <div class="timestamp"></div>
+    <img src="score.png" alt="Score Image" id="score-image" />
+  </div>
+
+  <div id="options">
+      <label><input type="radio" name="scale" value="scaled" checked /> Scaled</label>
+      <label><input type="radio" name="scale" value="unscaled" /> Unscaled</label>
+      &nbsp; | &nbsp;
+      <label for="sort-select">Sort by:</label>
+      <select id="sort-select">
+        <option value="artist" title="Alphabetical by ensemble name">Ensemble name</option>
+        <option value="snippet" title="Length of Maestoso in seconds">Maestoso length (s)</option>
+        <option value="movement" title="Movement track length">Movement length</option>
+        <option value="m6" title="Duration of Measure 6 / Maestoso Duration">Length of Measure 6 (s)</option>
+      </select>
+  </div>
+
+  <div id="visualization"></div>
+
+  <div id="footnote">
+    View source on <a id="github-link" href="https://github.com/jsundram/127" target="_blank">GitHub</a>
+  </div>
+  <div class="tooltip" id="tooltip"></div>
+
+  <script src="d3.v7.min.js"></script>
+<script>
+  const maxRowLength = 1000;
+  const tooltip = d3.select("#tooltip");
+
+  fetch("times.json")
+    .then(res => res.json())
+    .then(rawData => {
+      let data = rawData.slice();
+      const container = d3.select("#visualization");
+      const globalMaxTimestamp = d3.max(data.flatMap(d => d.timestamps));
+
+      function getSortValue(entry, type) {
+        switch (type) {
+          case "snippet":
+            return d3.max(entry.timestamps);
+          case "movement":
+            const duration = entry.track_length;
+            const [min, sec] = duration ? duration.split(":").map(Number) : [0, 0];
+            return min * 60 + sec;
+          case "m6":
+            const ts = entry.timestamps;
+            return (ts[ts.length - 1] - ts[ts.length - 2]) / ts[ts.length - 1];
+          default:
+            return entry.artist;//.toLowerCase();
+        }
+      }
+
+      function draw(scaleType) {
+        container.selectAll(".row").remove();
+
+        data.forEach(entry => {
+          const timestamps = entry.timestamps;
+          const semicircles = [];
+          for (let i = 0; i < timestamps.length - 1; i++) {
+            semicircles.push([timestamps[i], timestamps[i + 1]]);
+          }
+
+          let xScale = scaleType === "scaled"
+            ? d3.scaleLinear().domain(d3.extent(timestamps)).range([0, maxRowLength])
+            : d3.scaleLinear().domain([0, globalMaxTimestamp]).range([0, maxRowLength]);
+
+          const diameters = semicircles.map(([t1, t2]) => Math.abs(xScale(t2) - xScale(t1)));
+          const maxRadius = d3.max(diameters) / 2;
+          const minRadius = d3.min(diameters) / 2;
+          const svgHeight = maxRadius + minRadius + 20;
+          const y = maxRadius + 10;
+
+
+          // TODO: this next block needs tweaking.
+          const redDurations = timestamps.slice(1).map(
+            (t, i) => (i % 2 === 1 ? t - timestamps[i] : null)
+          ).filter(d => d !== null);
+          const [minDur, maxDur] = d3.extent(redDurations);
+
+          // #ad2428 was the original color
+          const redScale = d3.scaleLinear()
+            .domain([minDur, maxDur])
+            .range(["#f4cccc", "#990000"]);
+          // .range(["#e68487", "#ad2428"]);
+
+          const row = container.append("div").attr("class", "row");
+          row.append("div")
+            .attr("class", "artist")
+            .style("padding-top", y - 40 + "px")  // 40 = visual fudge factor
+            .append("a")
+            .attr("href", entry.spotify || "#")
+            .attr("target", "_blank")
+            .text(entry.artist);
+
+          row.append("div")
+            .attr("class", "timestamp")
+            .style("padding-top", y - 40 + "px")  // 40 = visual fudge factor
+            .text(d3.format(".1f")(d3.max(entry.timestamps)) + "s");
+
+          const svg = row.append("svg")
+            .attr("width", maxRowLength)
+            .attr("height", svgHeight);
+
+          semicircles.forEach(([t1, t2], i) => {
+            const x1 = xScale(t1);
+            const x2 = xScale(t2);
+            const x = (x1 + x2) / 2;
+            const d = Math.abs(x2 - x1);
+            const r = d / 2;
+            const duration = (t2 - t1).toFixed(2);
+
+            const path = d3.path();
+            const p = svg.append("path")
+              .attr("d", () => {
+                if (i % 2 === 0) {
+                  path.moveTo(x - r, y);
+                  path.arc(x, y, r, Math.PI, 0);
+                } else {
+                  path.moveTo(x + r, y);
+                  path.arc(x, y, r, 0, Math.PI);
+                }
+                return path.toString();
+              })
+              .attr("class", i % 2 === 0 ? "semicircle-up" : "semicircle-down")
+              //.style("fill", i % 2 === 0 ? null : redScale(t2 - t1)) // restore after fixing color scale
+              .on("mouseover", function (event) {
+                tooltip.style("opacity", 1).text(`${duration}s`);
+              })
+              .on("mousemove", function (event) {
+                tooltip
+                  .style("left", (event.pageX + 10) + "px")
+                  .style("top", (event.pageY - 20) + "px");
+              })
+              .on("mouseout", function () {
+                tooltip.style("opacity", 0);
+              });
+          });
+
+          row.append("div")
+            .attr("class", "timestamp")
+            .attr("title", "Track length for the whole movement")
+            .style("padding-top", y -12+"px")  // 40 = visual fudge factor
+            .text(entry.track_length || "");
+        });
+      }
+
+      function update() {
+        const scaleType = document.querySelector("input[name=scale]:checked").value;
+        const sortType = document.querySelector("#sort-select").value;
+        data.sort((a, b) => d3.ascending(getSortValue(a, sortType), getSortValue(b, sortType)));
+        draw(scaleType);
+      }
+
+      update();
+
+      d3.selectAll("input[name=scale]").on("change", update);
+      d3.select("#sort-select").on("change", update);
+    });
+</script>
+  </script>
+</body>
+</html>

@@ -7,5 +7,6 @@ This repository consists of 2 folders:
 
 The interactive visualization can be viewed here: https://jsundram.github.io/maestoso-127/viz/
 
+You can view a static version of the visualization [here](https://jsundram.github.io/maestoso-127/output/The%20Maestosos%20of%20Opus%20127%20-%20v1.pdf).
 ## Resources:
 https://www.rolf-musicblog.net/beethoven-string-quartet-op-127/

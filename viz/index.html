@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>The Maestosos of Opus 127</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--<link rel="stylesheet" href="viz.css">-->
   <style>
   @font-face {
     font-family: 'Playfair Display';
@@ -81,7 +82,7 @@
   .row {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     gap: 10px;
   }
 
@@ -89,10 +90,13 @@
     width: 180px;
     text-align: right;
     flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
     padding-right: 10px;
+  }
+
+  .meta-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
   }
 
   .artist {
@@ -155,11 +159,20 @@
     .meta {
       width: 100%;
       text-align: left;
-      align-items: flex-start;
       padding-right: 0;
-      margin-bottom: 5px;
+    }
+    .meta-inner {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
     }
   }
+
+  @media (min-width: 701px) {
+    .meta-inner {
+      transform: translateY(calc(var(--y-offset, 0px)));
+    }
+}
 </style>
 </head>
 <body>
@@ -191,7 +204,6 @@
 
   <script src="d3.v7.min.js"></script>
 <script>
-  const maxRowLength = 1000;
   const tooltip = d3.select("#tooltip");
 
   fetch("times.json")
@@ -200,6 +212,7 @@
       let data = rawData.slice();
       const container = d3.select("#visualization");
       const globalMaxTimestamp = d3.max(data.flatMap(d => d.timestamps));
+      const maxRowLength = container.node().clientWidth;
 
       function getSortValue(entry, type) {
         switch (type) {
@@ -226,6 +239,7 @@
           for (let i = 0; i < timestamps.length - 1; i++) {
             semicircles.push([timestamps[i], timestamps[i + 1]]);
           }
+          const [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11] = semicircles.map(([t1, t2]) => t2-t1);
 
           let xScale = scaleType === "scaled"
             ? d3.scaleLinear().domain(d3.extent(timestamps)).range([0, maxRowLength])
@@ -234,25 +248,34 @@
           const diameters = semicircles.map(([t1, t2]) => Math.abs(xScale(t2) - xScale(t1)));
           const maxRadius = d3.max(diameters) / 2;
           const minRadius = d3.min(diameters) / 2;
-          const svgHeight = maxRadius + minRadius + 20;
-          const y = maxRadius + 10;
+          const isMobile = window.innerWidth < 700;
+          const pad = isMobile ? 0 : 10;
+          const svgHeight = maxRadius + minRadius + 2*pad;
+          const y = maxRadius + pad;
 
           const row = container.append("div").attr("class", "row");
 
           const meta = row.append("div").attr("class", "meta");
-          meta.append("div")
+          const inner = meta.append("div").attr("class", "meta-inner");
+          inner.append("div")
             .attr("class", "artist")
             .append("a")
             .attr("href", entry.spotify || "#")
             .attr("target", "_blank")
             .text(entry.artist);
 
-
           const track_length = entry.track_length ? `[${entry.track_length}]` : "";
           const timeFormatted = `${d3.format(".2f")(d3.max(entry.timestamps))}s ${track_length}`;
-          meta.append("div")
+          inner.append("div")
             .attr("class", "timestamp")
             .text(timeFormatted);
+
+          // this is to center the artist and timestamp text vertically on wide screens.
+          meta.style("height", `${svgHeight}px`)
+            .style("display", "flex")
+            .style("flex-direction", "column")
+            .style("justify-content", "center")
+            .style("--y-offset", `${(y - svgHeight / 2)-9}px`);
 
           const svg = row.append("svg")
             .attr("viewBox", `0 0 ${maxRowLength} ${svgHeight}`)
@@ -286,8 +309,8 @@
               })
               .on("mousemove", function (event) {
                 tooltip
-                  .style("left", (event.pageX + 10) + "px")
-                  .style("top", (event.pageY - 20) + "px");
+                  .style("left", (event.pageX + pad) + "px")
+                  .style("top", (event.pageY - 2*pad) + "px");
               })
               .on("mouseout", function () {
                 tooltip.style("opacity", 0);

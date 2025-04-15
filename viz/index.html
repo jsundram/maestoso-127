@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>The Maestosos of Opus 127</title>
+  <title>Opus 127: Maestoso</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!--<link rel="stylesheet" href="viz.css">-->
   <style>
@@ -45,6 +45,17 @@
     margin-bottom: 0.5em;
   }
 
+  #subtitle {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: #111;
+    text-align: center;
+    margin-top: -0.5em;
+    margin-bottom: 0.5em;
+  }
   body {
     background-color: rgb(209, 199, 180);
     font-family: 'Source Serif 4', serif;
@@ -176,7 +187,10 @@
 </style>
 </head>
 <body>
-  <h1 class="header-title">The Maestosos of Opus 127</h1>
+    <header>
+    <h1 class="header-title">Opus 127: Maestoso</h1>
+    <p id="subtitle"></p>
+    </header>
 
   <div id="score-wrapper">
     <img src="score.png" alt="Score Image" id="score-image" />
@@ -214,6 +228,8 @@
       const globalMaxTimestamp = d3.max(data.flatMap(d => d.timestamps));
       const maxRowLength = container.node().clientWidth;
 
+      //d3.select('#subtitle').text(`${data.length - 1} recordings`);
+
       function getSortValue(entry, type) {
         switch (type) {
           case "snippet":
@@ -249,7 +265,7 @@
           const maxRadius = d3.max(diameters) / 2;
           const minRadius = d3.min(diameters) / 2;
           const isMobile = window.innerWidth < 700;
-          const pad = isMobile ? 0 : 10;
+          const pad = isMobile ? 4 : 10;
           const svgHeight = maxRadius + minRadius + 2*pad;
           const y = maxRadius + pad;
 

@@ -4,6 +4,9 @@ This repository consists of 2 folders:
 * `/data` - a repository for a Python3 command line tool to tap the rhythm of the opening bars of Opus 127. It was used repeatedly to write
 `times.json`
 * `/viz` - a repository for visualizing times.json in html/javascript with d3.js.
+  The link-preview card (`viz/assets/og.png`, referenced by the Open Graph tags in
+  `viz/index.html`) is generated from `times.json` by `python3 viz/scripts/make-og.py`;
+  rerun it if the data or the card copy changes.
 
 The interactive visualization can be viewed here: https://jsundram.github.io/maestoso-127/viz/
 
